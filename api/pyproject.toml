@@ -1,0 +1,18 @@
+[project]
+name = "skillforge-api"
+version = "0.1.0"
+description = "SkillForge backend: Agent Skill generation, validation, evaluation, and export."
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+exclude = [".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

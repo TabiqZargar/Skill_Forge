@@ -1,0 +1,83 @@
+# DigitalOcean App Platform specification for SkillForge.
+#
+# Two services:
+#   - api: FastAPI backend that talks to DigitalOcean Inference (server-side key only)
+#   - web: Next.js frontend that proxies /api/* to the backend
+#
+# Create it with:  doctl apps create --spec .do/app.yaml
+# Or connect this repo in the App Platform UI and paste this spec.
+#
+# Replace github.repo / branch and set DIGITALOCEAN_INFERENCE_KEY (encrypted)
+# before deploying. The model default is an open-weight Apache-2.0 model.
+
+name: skillforge
+region: blr1
+features:
+  - buildpack-stack=ubuntu-22
+
+services:
+  - name: api
+    environment_slug: python
+    source_dir: api
+    github:
+      repo: your-org/skillforge
+      branch: main
+      deploy_on_push: true
+    build_command: |
+      pip install --no-cache-dir -r requirements.txt
+    run_command: uvicorn app.main:app --host 0.0.0.0 --port 8080
+    http_port: 8080
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    health_check:
+      http_path: /api/health
+    envs:
+      - key: DIGITALOCEAN_INFERENCE_KEY
+        scope: RUN_TIME
+        type: SECRET
+        value: REPLACE_WITH_ENCRYPTED_KEY
+      - key: DIGITALOCEAN_MODEL
+        scope: RUN_TIME
+        value: openai-gpt-oss-120b
+      - key: DIGITALOCEAN_INFERENCE_BASE_URL
+        scope: RUN_TIME
+        value: https://inference.do-ai.run/v1
+      # Allow the deployed web origin to call the API from a browser.
+      - key: WEB_ORIGIN
+        scope: RUN_TIME
+        value: ${_self.PRIVATE_URL}
+      - key: SKILLFORGE_MAX_FILES
+        scope: RUN_TIME
+        value: "40"
+      - key: SKILLFORGE_MAX_TOTAL_BYTES
+        scope: RUN_TIME
+        value: "524288"
+
+  - name: web
+    environment_slug: node-js
+    source_dir: web
+    github:
+      repo: your-org/skillforge
+      branch: main
+      deploy_on_push: true
+    build_command: npm ci && npm run build
+    run_command: npm start
+    http_port: 3000
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    envs:
+      # Proxy /api/* from the Next.js server to the backend service.
+      - key: API_ORIGIN
+        scope: BUILD_TIME
+        value: ${api.PRIVATE_URL}
+      - key: API_ORIGIN
+        scope: RUN_TIME
+        value: ${api.PRIVATE_URL}
+
+ingress:
+  rules:
+    - component:
+        name: web
+      match:
+        path:
+          prefix: /

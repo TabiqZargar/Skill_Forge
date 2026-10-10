@@ -1,0 +1,28 @@
+# Python / API
+api/.venv/
+api/__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Node / web
+web/node_modules/
+web/.next/
+web/out/
+web/build/
+web/next-env.d.ts
+
+# Env files (keep the examples)
+.env
+.env.local
+.env.*.local
+api/.env
+web/.env.local
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
