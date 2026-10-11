@@ -92,31 +92,31 @@ Open <http://localhost:3000>.
 
 ## Configuration
 
-| Variable | Where | Default | Purpose |
-| --- | --- | --- | --- |
-| `DIGITALOCEAN_INFERENCE_KEY` | api | _(none)_ | Inference API key. Required for AI generation/eval. |
-| `DIGITALOCEAN_MODEL` | api | `openai-gpt-oss-120b` | Model ID. |
-| `DIGITALOCEAN_INFERENCE_BASE_URL` | api | `https://inference.do-ai.run/v1` | Inference base URL. |
-| `DIGITALOCEAN_INFERENCE_TIMEOUT` | api | `60` | Request timeout (seconds). |
-| `WEB_ORIGIN` | api | `http://localhost:3000,...` | Comma-separated CORS origins. |
-| `SKILLFORGE_MAX_FILES` | api | `40` | Max files per skill. |
-| `SKILLFORGE_MAX_FILE_BYTES` | api | `131072` | Max bytes per file. |
-| `SKILLFORGE_MAX_TOTAL_BYTES` | api | `524288` | Max total skill bytes / upload size. |
-| `API_ORIGIN` | web | `http://localhost:8000` | Backend origin for the `/api/*` proxy. |
+| Variable                          | Where | Default                          | Purpose                                             |
+| --------------------------------- | ----- | -------------------------------- | --------------------------------------------------- |
+| `DIGITALOCEAN_INFERENCE_KEY`      | api   | _(none)_                         | Inference API key. Required for AI generation/eval. |
+| `DIGITALOCEAN_MODEL`              | api   | `openai-gpt-oss-120b`            | Model ID.                                           |
+| `DIGITALOCEAN_INFERENCE_BASE_URL` | api   | `https://inference.do-ai.run/v1` | Inference base URL.                                 |
+| `DIGITALOCEAN_INFERENCE_TIMEOUT`  | api   | `60`                             | Request timeout (seconds).                          |
+| `WEB_ORIGIN`                      | api   | `http://localhost:3000,...`      | Comma-separated CORS origins.                       |
+| `SKILLFORGE_MAX_FILES`            | api   | `40`                             | Max files per skill.                                |
+| `SKILLFORGE_MAX_FILE_BYTES`       | api   | `131072`                         | Max bytes per file.                                 |
+| `SKILLFORGE_MAX_TOTAL_BYTES`      | api   | `524288`                         | Max total skill bytes / upload size.                |
+| `API_ORIGIN`                      | web   | `http://localhost:8000`          | Backend origin for the `/api/*` proxy.              |
 
 ## API
 
 Base path: `/api`.
 
-| Method | Path | Description |
-| --- | --- | --- |
-| `GET` | `/api/health` | Service status, whether inference is configured, model, version. |
-| `GET` | `/api/skills/sample` | Bundled sample skill (no credentials needed). |
-| `POST` | `/api/skills/validate` | Deterministic validation report for a skill. |
-| `POST` | `/api/skills/generate` | Generate a skill via DigitalOcean Inference. |
-| `POST` | `/api/skills/evaluate` | Evaluate a skill against scenarios. |
-| `POST` | `/api/skills/export` | Download a skill as a ZIP. |
-| `POST` | `/api/skills/import` | Safely import a skill from a ZIP body. |
+| Method | Path                   | Description                                                      |
+| ------ | ---------------------- | ---------------------------------------------------------------- |
+| `GET`  | `/api/health`          | Service status, whether inference is configured, model, version. |
+| `GET`  | `/api/skills/sample`   | Bundled sample skill (no credentials needed).                    |
+| `POST` | `/api/skills/validate` | Deterministic validation report for a skill.                     |
+| `POST` | `/api/skills/generate` | Generate a skill via DigitalOcean Inference.                     |
+| `POST` | `/api/skills/evaluate` | Evaluate a skill against scenarios.                              |
+| `POST` | `/api/skills/export`   | Download a skill as a ZIP.                                       |
+| `POST` | `/api/skills/import`   | Safely import a skill from a ZIP body.                           |
 
 ## The Agent Skills standard
 
@@ -135,7 +135,7 @@ metadata:
 
 1. Gather the merged pull requests.
 2. Group them by Conventional Commit type.
-...
+   ...
 ```
 
 Supported frontmatter fields: `name` (required), `description` (required), `license`,
