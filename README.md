@@ -8,7 +8,7 @@ body, and optional `scripts/` and `references/` support files. It then checks th
 lets you export a clean ZIP that any Agent Skills runtime can load.
 
 > Built for the Hacktoberfest Hack Day Srinagar × BUILDFEST-KASHMIR "Best Open-Source AI Project"
-> challenge. Open source under Apache-2.0.
+> challenge. Open source under Apache-2.0..
 
 ---
 
