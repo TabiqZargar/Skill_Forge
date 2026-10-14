@@ -22,7 +22,7 @@ lets you export a clean ZIP that any Agent Skills runtime can load.
 - **Round-trip export/import** — download or upload a ZIP with the correct
   `<name>/SKILL.md` directory structure.
 - **Safe by design** — skills are never executed; uploaded archives are size-limited and
-  path-traversal protected; credentials stay server-side.
+  path-traversal protected; credentials stay server-side..
 
 ## Architecture
 
